@@ -1,11 +1,17 @@
 import React from 'react';
 import style from "./Post.module.css";
 
+export type PostPropsType = {
+    message: string
+    likeCount: number
+}
 
-export const Post = () => {
+
+export const Post:React.FC<PostPropsType> = (props) => {
     return (
         <>
-            <div className={style.post}>Post1</div>
+            <div className={style.post}>{props.message}</div>
+            <span className={style.like}>like {props.likeCount}</span>
         </>
     );
 };
