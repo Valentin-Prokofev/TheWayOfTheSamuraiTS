@@ -1,0 +1,11 @@
+
+
+.header {
+    grid-area: h;
+    background-color: #95d1b5;
+    max-width: 100%;
+}
+
+.img_logo {
+    width: 50px;
+}

@@ -1,0 +1,13 @@
+.nav {
+    grid-area: n;
+    background-color: #83b779;
+}
+
+.nav_link {
+    list-style-type: none;
+}
+
+.nav_link a {
+    text-decoration: none;
+}
+
