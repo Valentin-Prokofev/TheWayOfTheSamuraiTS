@@ -1,0 +1,7 @@
+.dialogs_user_name a {
+    text-decoration: none;
+}
+
+.dialogs_user_name a.active {
+    color: #acacac;
+}

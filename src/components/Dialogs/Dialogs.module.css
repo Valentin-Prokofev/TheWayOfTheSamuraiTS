@@ -1,0 +1,11 @@
+
+.section_dialogs {
+    display: flex;
+    flex-direction: row;
+}
+
+.dialogs_users {
+    width: 50%;
+    list-style-type: none;
+}
+

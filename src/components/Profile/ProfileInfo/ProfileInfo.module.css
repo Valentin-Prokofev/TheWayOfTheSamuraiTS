@@ -1,0 +1,23 @@
+
+.img_article {
+    /*display: block;*/
+    max-width: 1000px;
+}
+
+.user_account {
+    display: flex;
+    padding: 10px;
+}
+
+.user_photo {
+    max-width: 150px;
+    max-height: 200px;
+}
+
+.user_description {
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+

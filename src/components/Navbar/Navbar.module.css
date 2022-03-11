@@ -4,10 +4,23 @@
 }
 
 .nav_link {
+    padding: 5px;
     list-style-type: none;
 }
 
 .nav_link a {
     text-decoration: none;
+    color: #e8e800;
+
 }
+
+.nav_link a.active {
+    color: #83de2c;
+}
+
+
+
+
+
+
 

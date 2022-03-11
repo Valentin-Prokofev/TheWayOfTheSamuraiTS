@@ -1,0 +1,45 @@
+.app_wrapper {
+    margin: 0;
+
+    /*font-family: "Montserrat", sans-serif;*/
+    font-size: 20px;
+    line-height: 1.6;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
+
+.app_wrapper {
+    margin: 0 auto;
+    max-width: 1200px;
+
+    display: grid;
+
+    grid-template-areas:
+    "h h"
+    "n c";
+
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 2fr 10fr;
+    /*grid-gap: 10px;*/
+}
+
+.app_wrapper_content {
+    max-width: 1000px;
+    grid-area: c;
+    background-color: #a6def3;
+}
+
+
