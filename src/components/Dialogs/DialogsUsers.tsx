@@ -7,7 +7,7 @@ import {NavLink} from "react-router-dom";
 
 type DialogsUsers = {
     name: string
-    id: string
+    id: number
 }
 
 export const DialogsUsers = (props:DialogsUsers) => {

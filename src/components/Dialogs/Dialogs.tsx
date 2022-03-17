@@ -5,24 +5,38 @@ import {DialogsUsers} from "./DialogsUsers";
 import {DialogsMessages} from "./DialogsMessages";
 
 
-
 export const Dialogs = () => {
+
+    let dialogsUsersData = [
+        {id: 1, name: "Dimych"},
+        {id: 2, name: "Andrey"},
+        {id: 3, name: "Sveta"},
+        {id: 4, name: "Sasha"},
+        {id: 5, name: "Victor"},
+        {id: 6, name: "Valera"}
+    ]
+
+    let dialogsMessagesData = [
+        {id: 1, message: "Hi!"},
+        {id: 2, message: "How is your it-kamasutra?"},
+        {id: 3, message: "This is to really hard!!!"},
+        {id: 4, message: "Yo"},
+        {id: 5, message: "Yo"},
+        {id: 6, message: "Yo"}
+    ]
+
+
 
     return (
         <>
             <section className={style.section_dialogs}>
                 <ul className={style.dialogs_users}>
-                    <DialogsUsers name={"Dimych"} id={"1"}/>
-                    <DialogsUsers name={"Andrey"} id={"2"}/>
-                    <DialogsUsers name={"Sveta"} id={"3"}/>
-                    <DialogsUsers name={"Sasha"} id={"4"}/>
-                    <DialogsUsers name={"Victor"} id={"5"}/>
-                    <DialogsUsers name={"Valera"} id={"6"}/>
+                    <DialogsUsers name={dialogsUsersData[0].name} id={dialogsUsersData[0].id}/>
+                    <DialogsUsers name={dialogsUsersData[1].name} id={dialogsUsersData[1].id}/>
                 </ul>
                 <ul className={style.dialogs_messages}>
-                    <DialogsMessages title = {"Hi!"}/>
-                    <DialogsMessages title = {"How is your it-kamasutra?"}/>
-                    <DialogsMessages title = {"This is to really hard!!!"}/>
+                    <DialogsMessages message={dialogsMessagesData[0].message}/>
+                    <DialogsMessages message={dialogsMessagesData[1].message}/>
                 </ul>
             </section>
         </>
