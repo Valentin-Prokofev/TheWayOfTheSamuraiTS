@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {NavLink} from 'react-router-dom';
 import style from "./Dialogs.module.css";
-import {DialogsUsers} from "./DialogsUsers";
-import {DialogsMessages} from "./DialogsMessages";
+import {DialogsUsers} from "./DialogsUsers/DialogsUsers";
+import {DialogsMessages} from "./DialogsMessages/DialogsMessages";
 
 
 export const Dialogs = () => {
@@ -25,18 +25,22 @@ export const Dialogs = () => {
         {id: 6, message: "Yo"}
     ]
 
+    let dialogsUsersElements = dialogsUsersData.map((user)=>
+        <DialogsUsers name={user.name} id={user.id}/>)
+
+    let dialogsMessagesElements = dialogsMessagesData.map((message) =>
+    <DialogsMessages message={message.message}/>)
+
 
 
     return (
         <>
             <section className={style.section_dialogs}>
                 <ul className={style.dialogs_users}>
-                    <DialogsUsers name={dialogsUsersData[0].name} id={dialogsUsersData[0].id}/>
-                    <DialogsUsers name={dialogsUsersData[1].name} id={dialogsUsersData[1].id}/>
+                    {dialogsUsersElements}
                 </ul>
                 <ul className={style.dialogs_messages}>
-                    <DialogsMessages message={dialogsMessagesData[0].message}/>
-                    <DialogsMessages message={dialogsMessagesData[1].message}/>
+                    {dialogsMessagesElements}
                 </ul>
             </section>
         </>
