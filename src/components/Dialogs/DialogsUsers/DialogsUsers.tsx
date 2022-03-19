@@ -5,12 +5,12 @@ import {NavLink} from "react-router-dom";
 
 
 
-type DialogsUsers = {
+export type DialogsUsersPropsType = {
     name: string
     id: number
 }
 
-export const DialogsUsers = (props:DialogsUsers) => {
+export const DialogsUsers = (props:DialogsUsersPropsType) => {
     return (
         <li className={`${style.dialogs_user_name} ${style.active}`}>
             <NavLink to={`/dialogs/${props.id}`}>{props.name}</NavLink>

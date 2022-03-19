@@ -8,6 +8,11 @@
     list-style-type: none;
 }
 
+/*.nav_link:last-child {*/
+/*    margin-top: 30px;*/
+/*    font-size: 40px;*/
+/*}*/
+
 .nav_link a {
     text-decoration: none;
     color: #e8e800;
@@ -16,6 +21,13 @@
 
 .nav_link a.active {
     color: #83de2c;
+}
+
+.title_friends {
+    margin-left: 40px;
+    color: #83de2c;
+    font-size: 40px;
+    font-weight: 300;
 }
 
 
