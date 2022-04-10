@@ -4,7 +4,7 @@ import {message} from "antd";
 
 type DialogsMessagesPropsType = {
     message: string
-    messageForDialogs:string
+    // messageForDialogs:string
     // addMessageCallBack: () => void                         HW
     // changeNewMessage: (newMessage: string) => void          HW
 }

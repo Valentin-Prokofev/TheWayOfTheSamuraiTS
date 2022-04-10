@@ -39,7 +39,9 @@ const App = (props: AppPropsType) => {
                         // changeNewText={props.changeNewText}
                     />}/>
                     <Route path="/dialogs" render={() => <Dialogs
+                        store={props.store}
                         messagePageType={state.messagesPage}
+                        dispatch={props.dispatch}
                         // addMessage={props.addMessage} ФУНКЦИЯ ИЗ ДЗ
                         // changeNewMessage={props.changeNewMessage} ФУНКЦИЯ ИЗ ДЗ
                         messageForDialogs={state.messagesPage.newMessageForDialogs}

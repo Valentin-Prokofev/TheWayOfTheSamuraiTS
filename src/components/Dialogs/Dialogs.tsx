@@ -1,29 +1,47 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import style from "./Dialogs.module.css";
 import {DialogsUsers} from "./DialogsUsers/DialogsUsers";
 import {DialogsMessages} from "./DialogsMessages/DialogsMessages";
-import {MessagesPageType} from "../../Redux/state";
+import {
+    ActionsTypes, addMessageForDialogsMessageCreator,
+    changeNewTextActionCreator,
+    MessagesPageType,
+    sendMessageForDialogsMessageCreator, StoreType
+} from "../../Redux/state";
 
 type DialogsPropsType = {
-    messagePageType:MessagesPageType
-    messageForDialogs:string
+    store: StoreType
+    messagePageType: MessagesPageType
+    messageForDialogs: string
+    dispatch: (action: ActionsTypes) => void
     // addMessage:()=>void                            HW
     // changeNewMessage:(newMessage:string)=>void     HW
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
 
-    let dialogsUsersElements = props.messagePageType.dialogsUsersData.map((user) =>
-        <DialogsUsers key={user.id} name={user.name} id={user.id} />)
+    let state = props.store.getState().messagesPage
+    let messageForDialogs = state.newMessageForDialogs
 
-    let dialogsMessagesElements = props.messagePageType.dialogsMessagesData.map((message) =>
+    let dialogsUsersElements = state.dialogsUsersData.map((user) =>
+        <DialogsUsers key={user.id} name={user.name} id={user.id}/>)
+
+    let dialogsMessagesElements = state.dialogsMessagesData.map((message) =>
         <DialogsMessages
-            key = {message.id}
+            key={message.id}
             message={message.message}
-            messageForDialogs={props.messageForDialogs}
+            // messageForDialogs={props.messageForDialogs}
             // addMessageCallBack={props.addMessage}               HW
             // changeNewMessage={props.changeNewMessage}           HW
         />)
+
+    const onSendMessageClick = () => {
+        props.dispatch(sendMessageForDialogsMessageCreator())
+    }
+
+    const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.dispatch(addMessageForDialogsMessageCreator(e.currentTarget.value))
+    }
 
     return (
         <>
@@ -32,7 +50,16 @@ export const Dialogs = (props: DialogsPropsType) => {
                     {dialogsUsersElements}
                 </ul>
                 <ul className={style.dialogs_messages}>
-                    {dialogsMessagesElements}
+                    <div>{dialogsMessagesElements}</div>
+                    <div>
+                        <div><textarea
+                            value={messageForDialogs}
+                            onChange={onNewMessageChange}
+                            placeholder={"Enter your message"}>0</textarea></div>
+                        <div>
+                            <button onClick={onSendMessageClick}>send</button>
+                        </div>
+                    </div>
                 </ul>
             </section>
         </>
