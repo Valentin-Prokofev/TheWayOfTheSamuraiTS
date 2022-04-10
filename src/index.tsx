@@ -10,8 +10,8 @@ import store from "./Redux/state";
         <BrowserRouter><App
             store={store}
             state={store._state}
-            addPost={store.addPost.bind(store)}
-            changeNewText={store.changeNewText.bind(store)}
+            dispatch={store.dispatch.bind(store)}
+            // changeNewText={store.changeNewText.bind(store)}
             // addMessage={store.addMessage}                   ФУНКЦИЯ ИЗ ДЗ
             // changeNewMessage={changeNewMessage}                  ФУНКЦИЯ ИЗ ДЗ
         /></BrowserRouter>, document.getElementById('root')

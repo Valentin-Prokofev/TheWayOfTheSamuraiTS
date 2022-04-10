@@ -1,13 +1,19 @@
 import React, {ChangeEvent} from 'react';
 import style from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {ProfilePageType} from "../../../Redux/state";
+import {
+    ActionsTypes,
+    addPostActionCreator,
+    changeNewTextActionCreator,
+    ProfilePageType
+} from "../../../Redux/state";
 
 type MyPostsPropsType = {
     postsData: ProfilePageType
-    addPostCallBack: () => void
+    // addPostCallBack: () => void
     message: string
-    changeNewText: (newText: string) => void
+    dispatch: (action: ActionsTypes) => void
+    // changeNewText: (newText: string) => void
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
@@ -16,13 +22,15 @@ export const MyPosts = (props: MyPostsPropsType) => {
         <Post key={post.id} message={post.message} likesCount={post.likesCount}/>)
 
     let addPost = () => {
-        props.addPostCallBack()
+        // props.addPostCallBack()
+        props.dispatch(addPostActionCreator())
     }
 
     let callBackHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.changeNewText(e.currentTarget.value)
+        // props.changeNewText(e.currentTarget.value)
+        // props.dispatch({type:"CHANGE-NEW-TEXT", newText: e.currentTarget.value})
+        props.dispatch(changeNewTextActionCreator(e.currentTarget.value))
     }
-
 
     return (
         <>

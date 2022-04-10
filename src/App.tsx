@@ -8,19 +8,21 @@ import {Dialogs} from "./components/Dialogs/Dialogs";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import state, {RootStateType, StoreType} from "./Redux/state";
+import state, {ActionsTypes, RootStateType, StoreType} from "./Redux/state";
 
 type AppPropsType = {
-    store:StoreType
+    store: StoreType
     state: RootStateType
-    addPost: () => void
-    changeNewText: (newText: string) => void
+    // addPost: () => void
+    // changeNewText: (newText: string) => void
+    dispatch: (action: ActionsTypes) => void
+
     // addMessage: () => void                   ДЗ
     // changeNewMessage: (newMessage: string) => void
 }
 
 const App = (props: AppPropsType) => {
-    const state =  props.store.getState()
+    const state = props.store.getState()
 
     return (
         <>
@@ -28,11 +30,13 @@ const App = (props: AppPropsType) => {
                 <Header/>
                 <Navbar/>
                 <div className={style.app_wrapper_content}>
-                    <Route path="/profile" render={() => <Profile
+                    <Route path="/profile" render={() =>
+                        <Profile
                         postsData={state.profilePage}
-                        addPostCallBack={props.addPost}
+                        // addPostCallBack={props.addPost}ЮЮЮ
+                        dispatch={props.dispatch}
                         message={state.profilePage.messageForNewPost}
-                        changeNewText={props.changeNewText}
+                        // changeNewText={props.changeNewText}
                     />}/>
                     <Route path="/dialogs" render={() => <Dialogs
                         messagePageType={state.messagesPage}

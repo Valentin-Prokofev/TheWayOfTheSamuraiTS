@@ -2,13 +2,14 @@ import React from 'react';
 import style from "./Profile.module.css";
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ProfilePageType} from "../../Redux/state";
+import {ActionsTypes, ProfilePageType} from "../../Redux/state";
 
 type ProfilePropsType = {
     postsData:ProfilePageType
-    addPostCallBack:()=>void
+    // addPostCallBack:()=>void
     message:string
-    changeNewText: (newText: string) => void
+    // changeNewText: (newText: string) => void
+    dispatch:(action:ActionsTypes)=>void
 }
 
 
@@ -22,9 +23,10 @@ export const Profile = (props: ProfilePropsType) => {
                 <ProfileInfo name={"Valentin Prokofev"} age={"34"} city={"Moscow"}/>
                 <MyPosts
                     postsData={props.postsData}
-                    addPostCallBack={props.addPostCallBack}
+                    // addPostCallBack={props.addPostCallBack}
                     message={props.message}
-                    changeNewText={props.changeNewText}
+                    // changeNewText={props.changeNewText}
+                    dispatch={props.dispatch}
                 />
             </article>
         </>
