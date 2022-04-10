@@ -1,30 +1,45 @@
-import React from 'react';
+import React, {ChangeEvent} from 'react';
 import style from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {postsDataArray} from "../../../App";
+import {ProfilePageType} from "../../../Redux/state";
 
 type MyPostsPropsType = {
-    postsData:Array<postsDataArray>
+    postsData: ProfilePageType
+    addPostCallBack: () => void
+    message: string
+    changeNewText: (newText: string) => void
 }
 
-export const MyPosts = (props:MyPostsPropsType) => {
+export const MyPosts = (props: MyPostsPropsType) => {
 
-    // let postsData = [
-    //     {id: 1, message: "Hello!", likesCount : 25},
-    //     {id: 2, message: "How are you", likesCount : 30},
-    //     {id: 3, message: "It's my first post", likesCount : 27},
-    //     {id: 4, message: "Hello!", likesCount : 23}
-    // ]
+    let postsElements = props.postsData.postsData.map((post) =>
+        <Post key={post.id} message={post.message} likesCount={post.likesCount}/>)
 
-    let postsElements = props.postsData.map((post)=>
-        <Post message={post.message} likesCount={post.likesCount}/>)
+    let addPost = () => {
+        props.addPostCallBack()
+    }
+
+    let callBackHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.changeNewText(e.currentTarget.value)
+    }
+
 
     return (
         <>
             <section className={style.my_posts}>
-                {postsElements}
+                <h3>My posts</h3>
+                <div>
+                    <div>
+                        <textarea value={props.message} onChange={callBackHandler}/>
+                    </div>
+                    <div>
+                        <button onClick={addPost}>add post</button>
+                    </div>
+                </div>
+                <div>
+                    {postsElements}
+                </div>
             </section>
-
         </>
     );
 };
