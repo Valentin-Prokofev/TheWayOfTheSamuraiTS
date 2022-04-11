@@ -1,4 +1,11 @@
 import React from 'react';
+import {addPostActionCreator, changeNewTextActionCreator, profilePageReducer} from "./profile-page-reducer";
+import {
+    addMessageForDialogsMessageCreator,
+    messagesPageReducer,
+    sendMessageForDialogsMessageCreator
+} from "./messages-page-reducer";
+import {sideBarReducer} from "./side-bar-reducer";
 
 
 let store: StoreType = {               //  делаем ооп хранилище для инкапсуляции
@@ -58,40 +65,47 @@ let store: StoreType = {               //  делаем ооп хранилищ�
         this._callSubscriber();
     },
     dispatch(action) {               //экшен это объект у котогоро одно из св-тв будет type:"ADD_POST"
-        if (action.type === "ADD-POST") {        //добавление нового поста
-            let newPost: PostsDataType = {
-                id: 5,
-                message: this._state.profilePage.messageForNewPost,
-                likesCount: 42
-            }
-            this._state.profilePage.postsData.push(newPost)   //запихиваем новый пост в стейт
-            this._state.profilePage.messageForNewPost = ""
-            this._callSubscriber();
-        } else if (action.type === "CHANGE-NEW-TEXT") {     // процесс изминения текс-ареи для нового поста
-            this._state.profilePage.messageForNewPost = action.newText
-            this._callSubscriber()
-        } else if (action.type === "ADD_MESSAGE-FOR-DIALOGS") {          // процесс изминения текс-ареи для нового сообщения в дайлогс
-            this._state.messagesPage.newMessageForDialogs = action.body
-            this._callSubscriber()
-        }else if (action.type === "SEND-MESSAGE-FOR-DIALOGS") {    // процесс добавления нового сообщения в дайлогс
-            let newMessageForDialogs :DialogsMessagesDataType = {
-                id:6,
-                message:this._state.messagesPage.newMessageForDialogs
-            }   //засовываем новое сообщение в переменную
-            this._state.messagesPage.newMessageForDialogs = ""             // обнуляем после добавления
-            this._state.messagesPage.dialogsMessagesData.push(newMessageForDialogs)  //запихиваем новое сообщеие в стейт
-            this._callSubscriber()
-        }
+
+        this._state.profilePage = profilePageReducer(this._state.profilePage, action)  //отправляем всю закоменченную ниже логику в редюсеры
+        this._state.messagesPage = messagesPageReducer(this._state.messagesPage, action)
+        this._state.sideBar = sideBarReducer(this._state.sideBar, action)
+        this._callSubscriber()
+
+
+        // if (action.type === "ADD-POST") {        //добавление нового поста
+        //     let newPost: PostsDataType = {
+        //         id: 5,
+        //         message: this._state.profilePage.messageForNewPost,
+        //         likesCount: 42
+        //     }
+        //     this._state.profilePage.postsData.push(newPost)   //запихиваем новый пост в стейт
+        //     this._state.profilePage.messageForNewPost = ""
+        //     this._callSubscriber();
+        // } else if (action.type === "CHANGE-NEW-TEXT") {     // процесс изминения текс-ареи для нового поста
+        //     this._state.profilePage.messageForNewPost = action.newText
+        //     this._callSubscriber()
+        // } else if (action.type === "ADD_MESSAGE-FOR-DIALOGS") {          // процесс изминения текс-ареи для нового сообщения в дайлогс
+        //     this._state.messagesPage.newMessageForDialogs = action.body
+        //     this._callSubscriber()
+        // }else if (action.type === "SEND-MESSAGE-FOR-DIALOGS") {    // процесс добавления нового сообщения в дайлогс
+        //     let newMessageForDialogs :DialogsMessagesDataType = {
+        //         id:6,
+        //         message:this._state.messagesPage.newMessageForDialogs
+        //     }   //засовываем новое сообщение в переменную
+        //     this._state.messagesPage.newMessageForDialogs = ""             // обнуляем после добавления
+        //     this._state.messagesPage.dialogsMessagesData.push(newMessageForDialogs)  //запихиваем новое сообщеие в стейт
+        //     this._callSubscriber()
+        // }
     }
 }
 
-type PostsDataType = {
+export type PostsDataType = {
     id: number
     message: string
     likesCount: number
 }
 
-type DialogsMessagesDataType = {
+export type DialogsMessagesDataType = {
     id: number
     message: string
 }
@@ -152,31 +166,31 @@ export type ActionsTypes =         //синтаксис типизации, то
     | ReturnType<typeof sendMessageForDialogsMessageCreator>         //эти прописываю по старинке
 
 
-export const addPostActionCreator = () => {   //вспомогательная функция для отправки нового поста
-    return {
-        type: "ADD-POST"
-    } as const    //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
-}
-
-export const changeNewTextActionCreator = (newText: string) => {  //вспомогательная функция для изминения текста в новом посте
-    return {
-        type: "CHANGE-NEW-TEXT",
-        newText: newText
-    } as const //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
-}
-
-export const addMessageForDialogsMessageCreator = (newText: string) => {   //вспомогательная функция для изминения текста нового сообщения
-    return {
-        type:"ADD_MESSAGE-FOR-DIALOGS",
-        body: newText
-    } as const //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
-}
-
-export const sendMessageForDialogsMessageCreator = () => {   //вспомогательная функция для отправки нового сообщения
-    return {
-        type:"SEND-MESSAGE-FOR-DIALOGS",
-    } as const //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
-}
+// export const addPostActionCreator = () => {   //вспомогательная функция для отправки нового поста
+//     return {
+//         type: "ADD-POST"
+//     } as const    //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
+// }
+//
+// export const changeNewTextActionCreator = (newText: string) => {  //вспомогательная функция для изминения текста в новом посте
+//     return {
+//         type: "CHANGE-NEW-TEXT",
+//         newText: newText
+//     } as const //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
+// }
+//
+// export const addMessageForDialogsMessageCreator = (newText: string) => {   //вспомогательная функция для изминения текста нового сообщения
+//     return {
+//         type:"ADD_MESSAGE-FOR-DIALOGS",
+//         body: newText
+//     } as const //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
+// }
+//
+// export const sendMessageForDialogsMessageCreator = () => {   //вспомогательная функция для отправки нового сообщения
+//     return {
+//         type:"SEND-MESSAGE-FOR-DIALOGS",
+//     } as const //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
+// }
 
 
 export default store;
