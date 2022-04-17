@@ -6,18 +6,23 @@ import {ActionsTypes, MessagesPageType, StoreType} from "../../Redux/store";
 import {addMessageForDialogsMessageCreator, sendMessageForDialogsMessageCreator} from "../../Redux/messages-page-reducer";
 
 type DialogsPropsType = {
-    store: StoreType
-    messagePageType: MessagesPageType
-    messageForDialogs: string
-    dispatch: (action: ActionsTypes) => void
-    // addMessage:()=>void                            HW
-    // changeNewMessage:(newMessage:string)=>void     HW
+    // store: StoreType
+    // messagePageType: MessagesPageType
+    // messageForDialogs: string
+    // dispatch: (action: ActionsTypes) => void
+
+    newMessageForDialogs:string
+    messagesPage:MessagesPageType
+    updateNewMessageBody:(text:string)=>void
+    sendMessage:()=>void
 }
 
 export const Dialogs = (props: DialogsPropsType) => {
 
-    let state = props.store.getState().messagesPage
-    let messageForDialogs = state.newMessageForDialogs
+    // let state = props.store.getState().messagesPage
+    let state = props.messagesPage
+    // let messageForDialogs = state.newMessageForDialogs
+    let messageForDialogs = props.newMessageForDialogs
 
     let dialogsUsersElements = state.dialogsUsersData.map((user) =>
         <DialogsUsers key={user.id} name={user.name} id={user.id}/>)
@@ -26,17 +31,16 @@ export const Dialogs = (props: DialogsPropsType) => {
         <DialogsMessages
             key={message.id}
             message={message.message}
-            // messageForDialogs={props.messageForDialogs}
-            // addMessageCallBack={props.addMessage}               HW
-            // changeNewMessage={props.changeNewMessage}           HW
         />)
 
     const onSendMessageClick = () => {
-        props.dispatch(sendMessageForDialogsMessageCreator())
+        props.sendMessage()
+        // props.dispatch(sendMessageForDialogsMessageCreator())
     }
 
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(addMessageForDialogsMessageCreator(e.currentTarget.value))
+        props.updateNewMessageBody(e.currentTarget.value)
+        // props.dispatch(addMessageForDialogsMessageCreator(e.currentTarget.value))
     }
 
     return (

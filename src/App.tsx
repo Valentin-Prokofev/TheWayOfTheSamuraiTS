@@ -9,6 +9,7 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import {ActionsTypes, StoreType} from "./Redux/store";
+import {DialogsContainer} from "./components/Dialogs/DialogsContaier";
 
 type AppPropsType = {
     store: StoreType
@@ -26,20 +27,18 @@ const App = (props: AppPropsType) => {
                 <div className={style.app_wrapper_content}>
                     <Route path="/profile" render={() =>
                         <Profile
-                        postsData={state.profilePage}
-                        // addPostCallBack={props.addPost}ЮЮЮ
-                        dispatch={props.dispatch}
-                        message={state.profilePage.messageForNewPost}
-                        // changeNewText={props.changeNewText}
-                    />}/>
-                    <Route path="/dialogs" render={() => <Dialogs
-                        store={props.store}
-                        messagePageType={state.messagesPage}
-                        dispatch={props.dispatch}
-                        // addMessage={props.addMessage} ФУНКЦИЯ ИЗ ДЗ
-                        // changeNewMessage={props.changeNewMessage} ФУНКЦИЯ ИЗ ДЗ
-                        messageForDialogs={state.messagesPage.newMessageForDialogs}
-                    />}/>
+                            store={props.store}
+                            // postsData={state.profilePage}
+                            // dispatch={props.dispatch}
+                            // message={state.profilePage.messageForNewPost}
+                        />}/>
+                    <Route path="/dialogs" render={() =>
+                        <DialogsContainer
+                            store={props.store}
+                            messagePageType={state.messagesPage}
+                            dispatch={props.dispatch}
+                            messageForDialogs={state.messagesPage.newMessageForDialogs}
+                        />}/>
                     <Route path="/news" component={News}/>
                     <Route path="/music" component={Music}/>
                     <Route path="/settings" component={Settings}/>
