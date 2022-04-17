@@ -12,12 +12,12 @@ import {ActionsTypes, StoreType} from "./Redux/store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContaier";
 
 type AppPropsType = {
-    store: StoreType
-    dispatch: (action: ActionsTypes) => void
+    // store: StoreType
+    // dispatch: (action: ActionsTypes) => void
 }
 
 const App = (props: AppPropsType) => {
-    const state = props.store.getState()
+    // const state = props.store.getState()
 
     return (
         <>
@@ -27,17 +27,17 @@ const App = (props: AppPropsType) => {
                 <div className={style.app_wrapper_content}>
                     <Route path="/profile" render={() =>
                         <Profile
-                            store={props.store}
+                            // store={props.store}
                             // postsData={state.profilePage}
                             // dispatch={props.dispatch}
                             // message={state.profilePage.messageForNewPost}
                         />}/>
                     <Route path="/dialogs" render={() =>
                         <DialogsContainer
-                            store={props.store}
-                            messagePageType={state.messagesPage}
-                            dispatch={props.dispatch}
-                            messageForDialogs={state.messagesPage.newMessageForDialogs}
+                            // store={props.store}
+                            // messagePageType={state.messagesPage}
+                            // dispatch={props.dispatch}
+                            // messageForDialogs={state.messagesPage.newMessageForDialogs}
                         />}/>
                     <Route path="/news" component={News}/>
                     <Route path="/music" component={Music}/>

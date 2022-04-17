@@ -13,4 +13,6 @@ export let reducers = combineReducers({
     sideBar: sideBarReducer                      // перечисляем за какие страницы какой редюсер отвечает
 })
 
-export let store:StoreType = createStore(reducers)
+export let store = createStore(reducers)
+export type ReduxPropsType = typeof store
+export type AppRootStateType = ReturnType<typeof reducers>
