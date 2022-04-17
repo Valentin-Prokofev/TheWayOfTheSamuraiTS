@@ -65,7 +65,6 @@ let store: StoreType = {               //  делаем ооп хранилищ�
         this._callSubscriber();
     },
     dispatch(action) {               //экшен это объект у котогоро одно из св-тв будет type:"ADD_POST"
-
         this._state.profilePage = profilePageReducer(this._state.profilePage, action)  //отправляем всю закоменченную ниже логику в редюсеры
         this._state.messagesPage = messagesPageReducer(this._state.messagesPage, action)
         this._state.sideBar = sideBarReducer(this._state.sideBar, action)
@@ -110,7 +109,7 @@ export type DialogsMessagesDataType = {
     message: string
 }
 
-type DialogsUsersDataType = {
+export type DialogsUsersDataType = {
     id: number
     name: string
 }
@@ -162,8 +161,8 @@ type SendMessageForDialogs = {    //типизация криейтора
 export type ActionsTypes =         //синтаксис типизации, тоже что закоменчено сверху на 3х строках
     ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof changeNewTextActionCreator>
-    | ReturnType<typeof addMessageForDialogsMessageCreator>           //эти прописываю по старинке
-    | ReturnType<typeof sendMessageForDialogsMessageCreator>         //эти прописываю по старинке
+    | ReturnType<typeof addMessageForDialogsMessageCreator>
+    | ReturnType<typeof sendMessageForDialogsMessageCreator>
 
 
 // export const addPostActionCreator = () => {   //вспомогательная функция для отправки нового поста

@@ -8,17 +8,11 @@ import {Dialogs} from "./components/Dialogs/Dialogs";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import state, {ActionsTypes, RootStateType, StoreType} from "./Redux/state";
+import {ActionsTypes, StoreType} from "./Redux/store";
 
 type AppPropsType = {
     store: StoreType
-    state: RootStateType
-    // addPost: () => void
-    // changeNewText: (newText: string) => void
     dispatch: (action: ActionsTypes) => void
-
-    // addMessage: () => void                   ДЗ
-    // changeNewMessage: (newMessage: string) => void
 }
 
 const App = (props: AppPropsType) => {
