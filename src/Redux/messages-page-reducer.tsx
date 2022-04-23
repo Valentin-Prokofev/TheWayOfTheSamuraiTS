@@ -1,6 +1,22 @@
-import {ActionsTypes, DialogsMessagesDataType, MessagesPageType, ProfilePageType} from "./store";
+import {ActionsTypes,} from "./redux-store";
 
-export let initialState: MessagesPageType = {
+export type DialogsMessagesDataType = {
+    id: number
+    message: string
+}
+
+export type DialogsUsersDataType = {
+    id: number
+    name: string
+}
+
+export type MessagesPageType = {
+    dialogsUsersData: Array<DialogsUsersDataType>
+    newMessageForDialogs: string
+    dialogsMessagesData: Array<DialogsMessagesDataType>
+}
+
+export let initialState = {
     dialogsUsersData: [
         {id: 1, name: "Dimych"},
         {id: 2, name: "Andrey"},
@@ -8,7 +24,7 @@ export let initialState: MessagesPageType = {
         {id: 4, name: "Sasha"},
         {id: 5, name: "Victor"},
         {id: 6, name: "Valera"}
-    ],
+    ] as Array<DialogsUsersDataType>,
     newMessageForDialogs: "",
     dialogsMessagesData: [
         {id: 1, message: "Hi!"},
@@ -17,37 +33,30 @@ export let initialState: MessagesPageType = {
         {id: 4, message: "Yo"},
         {id: 5, message: "Yo"},
         {id: 6, message: "Yo"}
-    ]
+    ]  as Array<DialogsMessagesDataType>
 }
 
-export const messagesPageReducer = (state = initialState, action: ActionsTypes) => {
+export type InitialStateType = typeof initialState
+
+export const messagesPageReducer = (state:InitialStateType = initialState, action: ActionsTypes):InitialStateType => {
 
     switch (action.type) {
-        case "ADD_MESSAGE-FOR-DIALOGS":
-            state.newMessageForDialogs = action.body
-            return state
-        case "SEND-MESSAGE-FOR-DIALOGS":
-            let newMessageForDialogs: DialogsMessagesDataType = {
+        case "ADD_MESSAGE-FOR-DIALOGS": {
+            return {...state, newMessageForDialogs: action.body}
+        }
+        case "SEND-MESSAGE-FOR-DIALOGS": {
+            let newMessageForDialogs: DialogsMessagesDataType = {    //засовываем новое сообщение в переменную
                 id: 6,
                 message: state.newMessageForDialogs
-            }   //засовываем новое сообщение в переменную
-            state.newMessageForDialogs = ""             // обнуляем после добавления
-            state.dialogsMessagesData.push(newMessageForDialogs)  //запихиваем новое сообщеие в стейт
-            return state
+            }
+           return {...state,           //создаем копию объекта для иммутабельности данных
+                newMessageForDialogs: "",          // обнуляем после добавления
+                dialogsMessagesData: [...state.dialogsMessagesData, newMessageForDialogs]    // создаем копию только той части стейта которую будем менять и запихиваем новое сообщеие в конец стейта
+            }
+        }
         default:
             return state
     }
-
-    // if (action.type === "ADD_MESSAGE-FOR-DIALOGS") {          // процесс изминения текс-ареи для нового сообщения в дайлогс
-    //     state.newMessageForDialogs = action.body
-    // } else if (action.type === "SEND-MESSAGE-FOR-DIALOGS") {    // процесс добавления нового сообщения в дайлогс
-    //     let newMessageForDialogs: DialogsMessagesDataType = {
-    //         id: 6,
-    //         message: state.newMessageForDialogs
-    //     }   //засовываем новое сообщение в переменную
-    //     state.newMessageForDialogs = ""             // обнуляем после добавления
-    //     state.dialogsMessagesData.push(newMessageForDialogs)  //запихиваем новое сообщеие в стейт
-    // }
 }
 
 export const addMessageForDialogsMessageCreator = (newText: string) => {   //вспомогательная функция для изминения текста нового сообщения

@@ -1,18 +1,33 @@
 import {combineReducers, createStore} from "redux";
-import {profilePageReducer} from "./profile-page-reducer";
-import {messagesPageReducer} from "./messages-page-reducer";
+import {addPostActionCreator, changeNewTextActionCreator, profilePageReducer} from "./profile-page-reducer";
+import {
+    addMessageForDialogsMessageCreator,
+    messagesPageReducer,
+    sendMessageForDialogsMessageCreator
+} from "./messages-page-reducer";
 import {sideBarReducer} from "./side-bar-reducer";
-import {StoreType} from "./store";
+import {followAC, setUsersAC, unFollowAC, usersReducer} from "./users-reduser";
 
 
-
-
-export let reducers = combineReducers({
+export let rootReducer = combineReducers({
     profilePage: profilePageReducer,             // перечисляем за какие страницы какой редюсер отвечает
-    messagesPage: messagesPageReducer,           // перечисляем за какие страницы какой редюсер отвечает
-    sideBar: sideBarReducer                      // перечисляем за какие страницы какой редюсер отвечает
+    messagesPage: messagesPageReducer,
+    sideBar: sideBarReducer,
+    users:usersReducer
 })
 
-export let store = createStore(reducers)
-export type ReduxPropsType = typeof store
-export type AppRootStateType = ReturnType<typeof reducers>
+//типизация редакса вместе с редюсерами
+export type AppStateType = ReturnType<typeof rootReducer>
+export const store = createStore(rootReducer)
+//типизация стора созданного редаксом
+// export type ReduxPropsType = typeof store
+//типизация редакса вместе с редюсерами
+
+export type ActionsTypes =
+    ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof changeNewTextActionCreator>
+    | ReturnType<typeof addMessageForDialogsMessageCreator>
+    | ReturnType<typeof sendMessageForDialogsMessageCreator>
+    | ReturnType<typeof followAC>
+    | ReturnType<typeof unFollowAC>
+    | ReturnType<typeof setUsersAC>

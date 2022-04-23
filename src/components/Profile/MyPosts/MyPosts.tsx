@@ -1,14 +1,7 @@
 import React, {ChangeEvent} from 'react';
 import style from "./MyPosts.module.css";
+import {MyPostsPropsType} from "./MyPostsContainer";
 import {Post} from "./Post/Post";
-import {ProfilePageType} from "../../../Redux/store";
-
-type MyPostsPropsType = {
-    postsData: ProfilePageType
-    message: string
-    updateNewPostText:(text:string)=>void
-    addPost:()=>void
-}
 
 export const MyPosts = (props: MyPostsPropsType) => {
 

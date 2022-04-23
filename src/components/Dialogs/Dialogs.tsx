@@ -2,27 +2,13 @@ import React, {ChangeEvent} from 'react';
 import style from "./Dialogs.module.css";
 import {DialogsUsers} from "./DialogsUsers/DialogsUsers";
 import {DialogsMessages} from "./DialogsMessages/DialogsMessages";
-import {ActionsTypes, MessagesPageType, StoreType} from "../../Redux/store";
-import {addMessageForDialogsMessageCreator, sendMessageForDialogsMessageCreator} from "../../Redux/messages-page-reducer";
+import {DialogsPropsType} from "./DialogsContainer";
 
-type DialogsPropsType = {
-    // store: StoreType
-    // messagePageType: MessagesPageType
-    // messageForDialogs: string
-    // dispatch: (action: ActionsTypes) => void
-
-    newMessageForDialogs:string
-    messagesPage:MessagesPageType
-    updateNewMessageBody:(text:string)=>void
-    sendMessage:()=>void
-}
 
 export const Dialogs = (props: DialogsPropsType) => {
 
-    // let state = props.store.getState().messagesPage
     let state = props.messagesPage
-    // let messageForDialogs = state.newMessageForDialogs
-    let messageForDialogs = props.newMessageForDialogs
+    let messageForDialogs = state.newMessageForDialogs
 
     let dialogsUsersElements = state.dialogsUsersData.map((user) =>
         <DialogsUsers key={user.id} name={user.name} id={user.id}/>)
@@ -35,12 +21,10 @@ export const Dialogs = (props: DialogsPropsType) => {
 
     const onSendMessageClick = () => {
         props.sendMessage()
-        // props.dispatch(sendMessageForDialogsMessageCreator())
     }
 
     const onNewMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.updateNewMessageBody(e.currentTarget.value)
-        // props.dispatch(addMessageForDialogsMessageCreator(e.currentTarget.value))
     }
 
     return (
