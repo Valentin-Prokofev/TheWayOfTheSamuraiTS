@@ -9,6 +9,7 @@ export const Navbar = () => {
                 <ul>
                     <li className={style.nav_link}><NavLink to={"/profile"} activeClassName={style.active}>Profile</NavLink></li>
                     <li className={style.nav_link}><NavLink to={"/dialogs"} activeClassName={style.active}>Messages</NavLink></li>
+                    <li className={style.nav_link}><NavLink to={"/users"} activeClassName={style.active}>Users</NavLink></li>
                     <li className={style.nav_link}><NavLink to={"/news"} activeClassName={style.active}>News</NavLink></li>
                     <li className={style.nav_link}><NavLink to={"/music"} activeClassName={style.active}>Music</NavLink></li>
                     <li className={style.nav_link}><NavLink to={"/settings"} activeClassName={style.active}>Settings</NavLink></li>
