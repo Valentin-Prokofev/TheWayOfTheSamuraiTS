@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/TheWayOfTheSamuraiTS/static/css/main.94c02282.css",
-    "main.js": "/TheWayOfTheSamuraiTS/static/js/main.e2f9c781.js",
+    "main.js": "/TheWayOfTheSamuraiTS/static/js/main.e86e69d8.js",
     "index.html": "/TheWayOfTheSamuraiTS/index.html",
     "main.94c02282.css.map": "/TheWayOfTheSamuraiTS/static/css/main.94c02282.css.map",
-    "main.e2f9c781.js.map": "/TheWayOfTheSamuraiTS/static/js/main.e2f9c781.js.map"
+    "main.e86e69d8.js.map": "/TheWayOfTheSamuraiTS/static/js/main.e86e69d8.js.map"
   },
   "entrypoints": [
     "static/css/main.94c02282.css",
-    "static/js/main.e2f9c781.js"
+    "static/js/main.e86e69d8.js"
   ]
 }
