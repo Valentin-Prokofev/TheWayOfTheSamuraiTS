@@ -3,7 +3,6 @@ import {UsersPropsType} from "./UsersContainer";
 import styles from "./Users.module.css";
 import axios from "axios";
 
-
 class UsersC extends React.Component<UsersPropsType> {
     // constructor(props: any) {
     //     super(props);
@@ -59,15 +58,13 @@ class UsersC extends React.Component<UsersPropsType> {
     render() {
         return (
             <div>
-                {/*<button onClick={this.getUsers}>get users</button>*/}
                 {
                     this.props.usersPage.users.map((u) => (
                             <div key={u.id}>
                     <span>
                         <div>
                             <img className={styles.user_photo}
-                                 src={u.photos.small === null ? u.photos.small : 'https://api-private.atlassian.com/users/72e5a4a8f810bfcde40bc63962d01aa4/avatar'}
-                                // src={u.photos.small === null ?  u.photos.small : require('../../assets/img/logo.jpg')}
+                                 src={u.photos.small !== null ? u.photos.small : '/assets/img/avatarLogoDefault.png'}
                                  alt="avatar"/>
                         </div>
                         <div>

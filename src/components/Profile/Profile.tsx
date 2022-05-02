@@ -13,7 +13,7 @@ export const Profile = (props: ProfilePropsType) => {
         <>
             <article className={style.content}>
                 <img className={style.img_article}
-                     src="https://ic.pics.livejournal.com/zdorovs/16627846/985307/985307_original.jpg" alt="view"/>
+                     src="/assets/img/view.jpg" alt="viewCity"/>
                 <ProfileInfo name={"Valentin Prokofev"} age={"34"} city={"Moscow"}/>
                 <MyPostsContainer/>
             </article>

@@ -2,7 +2,6 @@ import React from 'react';
 import {UsersPropsType} from "./UsersContainer";
 import styles from "./Users.module.css"
 import axios from "axios";
-// import userPhoto from "../../assets/img/pngwing.com.png"
 
 export const Users = (props: UsersPropsType) => {
     const getUsers = () => {
@@ -41,9 +40,6 @@ export const Users = (props: UsersPropsType) => {
         }
     }
 
-    const imgLogo = require('../../assets/img/logo.jpg')
-    const imgLogo1 = 'https://api-private.atlassian.com/users/72e5a4a8f810bfcde40bc63962d01aa4/avatar'
-
     console.log(props.usersPage.users)
     return(
         <div>
@@ -54,9 +50,7 @@ export const Users = (props: UsersPropsType) => {
                     <span>
                         <div>
                             <img className={styles.user_photo}
-                                 src={u.photos.small === null ?  u.photos.small : imgLogo1}
-                                 // src={u.photos.small === null ?  u.photos.small : imgLogo}
-                                 alt="avatar"/>
+                                 src={u.photos.small !== null ? u.photos.small : '/assets/img/avatarLogoDefault.png'}                                 alt="avatar"/>
                         </div>
                         <div>
                             {u.followed

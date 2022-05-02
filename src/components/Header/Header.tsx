@@ -5,7 +5,7 @@ export const Header = () => {
     return (
         <>
             <header className={style.header}>
-                <img className={style.img_logo} src="http://www.heraldicum.ru/russia/subjects/towns/images/dimitro1.gif"
+                <img className={style.img_logo} src='/assets/img/logo.jpg'
                      alt="logo"/>
             </header>
         </>
