@@ -1,13 +1,16 @@
 {
   "files": {
     "main.css": "/TheWayOfTheSamuraiTS/static/css/main.94c02282.css",
-    "main.js": "/TheWayOfTheSamuraiTS/static/js/main.e86e69d8.js",
+    "main.js": "/TheWayOfTheSamuraiTS/static/js/main.b52d7cbc.js",
+    "static/media/view.jpg": "/TheWayOfTheSamuraiTS/static/media/view.e47a733d43c767971ee2.jpg",
+    "static/media/logo.jpg": "/TheWayOfTheSamuraiTS/static/media/logo.09e9ec8330e380c9d11e.jpg",
+    "static/media/avatarLogoDefault.png": "/TheWayOfTheSamuraiTS/static/media/avatarLogoDefault.f131f229f1a9d22c041e.png",
     "index.html": "/TheWayOfTheSamuraiTS/index.html",
     "main.94c02282.css.map": "/TheWayOfTheSamuraiTS/static/css/main.94c02282.css.map",
-    "main.e86e69d8.js.map": "/TheWayOfTheSamuraiTS/static/js/main.e86e69d8.js.map"
+    "main.b52d7cbc.js.map": "/TheWayOfTheSamuraiTS/static/js/main.b52d7cbc.js.map"
   },
   "entrypoints": [
     "static/css/main.94c02282.css",
-    "static/js/main.e86e69d8.js"
+    "static/js/main.b52d7cbc.js"
   ]
 }
