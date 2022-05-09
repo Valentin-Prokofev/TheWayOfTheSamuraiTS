@@ -15,34 +15,61 @@ type MapDispatchPropsType = {
 }
 
 type PathParamsType = {
-    useId: string
+    userId: string
 }
 type ProfileContainerPropsType = MapStatePropsType & MapDispatchPropsType
 
 type MainProfileContainerPropsType = RouteComponentProps<PathParamsType> & ProfileContainerPropsType
 
-const ProfileContainer = (props:MainProfileContainerPropsType) => {
-    useEffect(()=> {
-        let userId = props.match.params.useId
-        if(!userId) {
-            userId = "2"
-        }
+class ProfileContainer extends React.Component<MainProfileContainerPropsType> {
+    componentDidMount() {
+        let userId = this.props.match.params.userId
+        console.log(userId)
+
+        // if(!userId) {
+        //     userId = "2"
+        // }
+        console.log(userId)
         axios
             .get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
             .then(response => {
-                props.setUserProfile(response.data)
+                this.props.setUserProfile(response.data)
             })
-    }, [])
-    return (
-            <Profile profile={props.profile}/>
-    )
+    }
+
+    render() {
+        return (
+            <Profile profile={this.props.profile}/>
+        )
+    }
 }
 
-let mapStateToProps = (state:AppStateType):MapStatePropsType => ({
+// const ProfileContainer = (props:MainProfileContainerPropsType) => {
+//     useEffect(()=> {
+//         let userId = props.match.params.useId
+//         console.log(userId)
+//
+//         if(!userId) {
+//             userId = "2"
+//         }
+//         console.log(userId)
+//
+//         axios
+//             .get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
+//             .then(response => {
+//                 props.setUserProfile(response.data)
+//             })
+//     }, [])
+//     return (
+//             <Profile profile={props.profile}/>
+//     )
+// }
+
+let mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     profile: state.profilePage.profile
 })
 
 let WithUrlProfileContainer = withRouter(ProfileContainer)
 
-export default connect(mapStateToProps, {setUserProfile}) (WithUrlProfileContainer)
+export default connect(mapStateToProps, {setUserProfile})(WithUrlProfileContainer)
 
