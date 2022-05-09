@@ -5,49 +5,35 @@ export type LocationType = {
     country: string
 }
 export type PhotosType = {
-    small: string
-    large: string
+    small: string | null
+    large: string | null
 }
+// export type PhotosType = {
+//     small: string
+//     large: string
+// }
 export type UserType = {
     id: number
     photos: PhotosType
     followed: boolean
     name: string
     status: string
-    // location: LocationType
-}
-
-export let initialState:InitialStateType = {
-    users: [
-        // {
-        //     id: 1,
-        //     photoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxyDRU6K09ugr3QGhTFsr1q8fzB5zbH3cJLw&usqp=CAU",
-        //     followed: false,
-        //     fullName: "Dmitry",
-        //     status: "i am a boss",
-        //     location: {city: "Minsk", country: "Belarus"}
-        // },
-        // {
-        //     id: 2,
-        //     photoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxyDRU6K09ugr3QGhTFsr1q8fzB5zbH3cJLw&usqp=CAU",
-        //     followed: true,
-        //     fullName: "Sasha",
-        //     status: "i am a boss too",
-        //     location: {city: "Moscow", country: "Russia"}
-        // },
-        // {
-        //     id: 3,
-        //     photoUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxyDRU6K09ugr3QGhTFsr1q8fzB5zbH3cJLw&usqp=CAU",
-        //     followed: false,
-        //     fullName: "Anton",
-        //     status: "i am a boss too",
-        //     location: {city: "Kiev", country: "Ukraine"}
-        // }
-    ]
 }
 
 export type InitialStateType = {
-    users: Array<UserType>
+    users: Array<UserType>,
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number,
+    isFetching: boolean,
+}
+
+export let initialState:InitialStateType = {
+    users: [],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 2,
+    isFetching: false,
 }
 
 export const usersReducer = (state: InitialStateType = initialState, action: ActionsTypes): InitialStateType => {
@@ -57,29 +43,57 @@ export const usersReducer = (state: InitialStateType = initialState, action: Act
         case "UNFOLLOW":
             return {...state, users: state.users.map(u => u.id === action.id ? {...u, followed: false} : u)}
         case "SET-USERS":
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: action.users}
+        case "SET-CURRENT-PAGE":
+            return {...state, currentPage: action.payload.page}
+        case "SET-TOTAL-USERS-COUNT":
+            return {...state, totalUsersCount: action.payload.totalPageCount}
+        case "TOGGLE-IS-FETCHING":
+            return {...state, isFetching: action.payload.isFetching}
         default:
             return state
     }
 }
 
-export const followAC = (userId: number) => {
+export const follow = (userId: number) => {
     return {
         type: "FOLLOW",
         id: userId
     } as const
 }
-
-export const unFollowAC = (userId: number) => {
+export const unFollow = (userId: number) => {
     return {
         type: "UNFOLLOW",
         id: userId
     } as const
 }
-
-export const setUsersAC = (users: Array<UserType>) => {
+export const setUsers = (users: Array<UserType>) => {
     return {
         type: "SET-USERS",
         users: users
+    } as const
+}
+export const setCurrentPage = (page: number) => {
+    return {
+        type: "SET-CURRENT-PAGE",
+        payload: {
+            page
+        }
+    } as const
+}
+export const setTotalUsersCount = (totalPageCount: number) => {
+    return {
+        type: "SET-TOTAL-USERS-COUNT",
+        payload: {
+            totalPageCount
+        }
+    } as const
+}
+export const toggleIsFetching = (isFetching: boolean) => {
+    return {
+        type: "TOGGLE-IS-FETCHING",
+        payload: {
+            isFetching
+        }
     } as const
 }

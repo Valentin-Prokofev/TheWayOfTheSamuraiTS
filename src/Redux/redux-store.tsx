@@ -1,12 +1,25 @@
 import {combineReducers, createStore} from "redux";
-import {addPostActionCreator, changeNewTextActionCreator, profilePageReducer} from "./profile-page-reducer";
+import {
+    addPostActionCreator,
+    changeNewTextActionCreator,
+    profilePageReducer,
+    setUserProfile
+} from "./profile-page-reducer";
 import {
     addMessageForDialogsMessageCreator,
     messagesPageReducer,
     sendMessageForDialogsMessageCreator
 } from "./messages-page-reducer";
 import {sideBarReducer} from "./side-bar-reducer";
-import {followAC, setUsersAC, unFollowAC, usersReducer} from "./users-reduser";
+import {
+    follow,
+    setCurrentPage,
+    setTotalUsersCount,
+    setUsers,
+    toggleIsFetching,
+    unFollow,
+    usersReducer
+} from "./users-reduser";
 
 
 export let rootReducer = combineReducers({
@@ -28,6 +41,13 @@ export type ActionsTypes =
     | ReturnType<typeof changeNewTextActionCreator>
     | ReturnType<typeof addMessageForDialogsMessageCreator>
     | ReturnType<typeof sendMessageForDialogsMessageCreator>
-    | ReturnType<typeof followAC>
-    | ReturnType<typeof unFollowAC>
-    | ReturnType<typeof setUsersAC>
+    | ReturnType<typeof follow>
+    | ReturnType<typeof unFollow>
+    | ReturnType<typeof setUsers>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof toggleIsFetching>
+    | ReturnType<typeof setUserProfile>
+
+// @ts-ignore
+window.store = store
