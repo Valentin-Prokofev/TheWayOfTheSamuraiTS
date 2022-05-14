@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Profile} from "./Profile";
 import axios from "axios";
 import {connect} from "react-redux";
@@ -24,12 +24,7 @@ type MainProfileContainerPropsType = RouteComponentProps<PathParamsType> & Profi
 class ProfileContainer extends React.Component<MainProfileContainerPropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
-        console.log(userId)
 
-        // if(!userId) {
-        //     userId = "2"
-        // }
-        console.log(userId)
         axios
             .get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
             .then(response => {
@@ -43,27 +38,6 @@ class ProfileContainer extends React.Component<MainProfileContainerPropsType> {
         )
     }
 }
-
-// const ProfileContainer = (props:MainProfileContainerPropsType) => {
-//     useEffect(()=> {
-//         let userId = props.match.params.useId
-//         console.log(userId)
-//
-//         if(!userId) {
-//             userId = "2"
-//         }
-//         console.log(userId)
-//
-//         axios
-//             .get<ProfileType>(`https://social-network.samuraijs.com/api/1.0/profile/` + userId)
-//             .then(response => {
-//                 props.setUserProfile(response.data)
-//             })
-//     }, [])
-//     return (
-//             <Profile profile={props.profile}/>
-//     )
-// }
 
 let mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     profile: state.profilePage.profile

@@ -15,30 +15,32 @@ type ProfileInfoPropsType = {
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
-    if (!props.profile) {
-        return <Preloader/>
-    }
+    // if (!props.profile) {
+    //     return <Preloader/>
+    // }
+
     console.log(props.profile)
     return (
         <>
             <section className={style.user_account}>
-                <img className={style.user_photo}
-                     src={my_avatar}
-                     alt="my avatar"
-                />
-                <div className={style.user_description}>
-                    <div className={style.user_name}>
-                        <h3>{props.name}</h3>
-                    </div>
-                    <div className={style.user_date}>
-                        <span>{props.age}</span>
-                        <p>{props.city}</p>
-                    </div>
-                </div>
-                {/*<img src={props.profile.photos["large"]} alt="userPhoto"/>*/}
-                {/*<img src={props.profile.photos.large} alt="userPhoto"/>*/}
-                {/*<img src={props.profile.photos["large"] !== null ? props.profile.photos["large"]: logo} alt="userPhoto"/>*/}
-                <img src={props.profile.photos.large !== null ? props.profile.photos.large: logo} alt="userPhoto"/>
+                {!props.profile
+                   ? <>< img className={style.user_photo}
+                              src={my_avatar}
+                              alt="my avatar"
+                    />
+                        <div className={style.user_description}>
+                            <div className={style.user_name}>
+                                <h3>{props.name}</h3>
+                            </div>
+                            <div className={style.user_date}>
+                                <span>{props.age}</span>
+                                <p>{props.city}</p>
+                            </div>
+                        </div>
+                    </>
+                    :<img src={props.profile.photos.large !== null ? props.profile.photos.large: logo} alt="userPhoto"/>
+                }
+                {/*<img src={props.profile.photos.large !== null ? props.profile.photos.large: logo} alt="userPhoto"/>*/}
             </section>
         </>
     );

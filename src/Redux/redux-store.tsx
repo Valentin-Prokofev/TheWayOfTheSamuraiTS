@@ -16,17 +16,19 @@ import {
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
-    toggleIsFetching,
+    toggleIsFetching, toggleIsFollowingProgress,
     unFollow,
     usersReducer
 } from "./users-reduser";
+import {authReducer, setAuthUserData} from "./auth-reduser";
 
 
 export let rootReducer = combineReducers({
     profilePage: profilePageReducer,             // перечисляем за какие страницы какой редюсер отвечает
     messagesPage: messagesPageReducer,
     sideBar: sideBarReducer,
-    users:usersReducer
+    users:usersReducer,
+    auth: authReducer,
 })
 
 //типизация редакса вместе с редюсерами
@@ -48,6 +50,9 @@ export type ActionsTypes =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setAuthUserData>
+    | ReturnType<typeof toggleIsFollowingProgress>
+
 
 // @ts-ignore
 window.store = store

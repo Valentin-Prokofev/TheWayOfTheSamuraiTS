@@ -1,13 +1,28 @@
 import React from 'react';
 import style from "./Header.module.css";
 import logo from "../../Image/logo.jpg"
+import {NavLink} from 'react-router-dom';
 
-export const Header = () => {
+type HeaderPropsType = {
+    setAuthUserData: (userId: number, email: string, login: string, isAuth: boolean) => void
+    userId: number | null,
+    email: string | null,
+    login: string | null,
+    isAuth: boolean
+}
+
+export const Header = (props: HeaderPropsType) => {
     return (
         <>
             <header className={style.header}>
                 <img className={style.img_logo} src={logo}
                      alt="logo"/>
+                <div className={style.login_block}>
+                    {props.isAuth
+                        ? props.login
+                        : <NavLink to={"/login"}>Login</NavLink>
+                    }
+                </div>
             </header>
         </>
     );
