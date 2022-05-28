@@ -6,7 +6,9 @@ import {
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../Redux/redux-store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
+import {WithAuthRedirect} from "../../hoc/WithAuthRedirect";
+import {withRouter} from "react-router-dom";
 
 type MapStatePropsType = {
     messagesPage:MessagesPageType
@@ -21,7 +23,7 @@ export type DialogsPropsType = MapDispatchPropsType & MapStatePropsType
 
 const mapStateToProps = (state: AppStateType):MapStatePropsType => {
     return {
-        messagesPage: state.messagesPage
+        messagesPage: state.messagesPage,
     }
 }
 
@@ -36,5 +38,14 @@ const mapDispatchToProps = (dispatch: Dispatch):MapDispatchPropsType => {
     }
 }
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+// let AuthRedirectComponent = WithAuthRedirect(Dialogs)
+
+
+// export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(AuthRedirectComponent)
+
+export default compose<React.ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withRouter,
+    WithAuthRedirect
+)(Dialogs)
 

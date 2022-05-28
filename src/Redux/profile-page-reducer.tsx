@@ -1,5 +1,7 @@
 import {ActionsTypes} from "./redux-store";
 import {PhotosType} from "./users-reduser";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 export type PostsDataType = {
     id: number
@@ -69,6 +71,8 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
     }
 }
 
+
+//Actions Creators
 export const addPostActionCreator = () => {   //вспомогательная функция для отправки нового поста
     return {
         type: "ADD-POST"
@@ -89,4 +93,13 @@ export const setUserProfile = (userProfile: ProfileType) => {  //вспомог�
             userProfile
         }
     } as const //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
+}
+
+//Thunks Creators
+
+export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId)
+        .then(response => {
+            dispatch(setUserProfile(response.data))
+        })
 }

@@ -4,7 +4,6 @@ import logo from "../../Image/logo.jpg"
 import {NavLink} from 'react-router-dom';
 
 type HeaderPropsType = {
-    setAuthUserData: (userId: number, email: string, login: string, isAuth: boolean) => void
     userId: number | null,
     email: string | null,
     login: string | null,

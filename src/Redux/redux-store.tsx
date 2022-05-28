@@ -1,4 +1,4 @@
-import {combineReducers, createStore} from "redux";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import {
     addPostActionCreator,
     changeNewTextActionCreator,
@@ -12,15 +12,16 @@ import {
 } from "./messages-page-reducer";
 import {sideBarReducer} from "./side-bar-reducer";
 import {
-    follow,
+    followSuccess,
     setCurrentPage,
     setTotalUsersCount,
     setUsers,
     toggleIsFetching, toggleIsFollowingProgress,
-    unFollow,
+    unFollowSuccess,
     usersReducer
 } from "./users-reduser";
 import {authReducer, setAuthUserData} from "./auth-reduser";
+import thunk from "redux-thunk";
 
 
 export let rootReducer = combineReducers({
@@ -33,7 +34,7 @@ export let rootReducer = combineReducers({
 
 //типизация редакса вместе с редюсерами
 export type AppStateType = ReturnType<typeof rootReducer>
-export const store = createStore(rootReducer)
+export const store = createStore(rootReducer, applyMiddleware(thunk))
 //типизация стора созданного редаксом
 // export type ReduxPropsType = typeof store
 //типизация редакса вместе с редюсерами
@@ -43,8 +44,8 @@ export type ActionsTypes =
     | ReturnType<typeof changeNewTextActionCreator>
     | ReturnType<typeof addMessageForDialogsMessageCreator>
     | ReturnType<typeof sendMessageForDialogsMessageCreator>
-    | ReturnType<typeof follow>
-    | ReturnType<typeof unFollow>
+    | ReturnType<typeof followSuccess>
+    | ReturnType<typeof unFollowSuccess>
     | ReturnType<typeof setUsers>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setTotalUsersCount>

@@ -4,7 +4,6 @@ import {DialogsUsers} from "./DialogsUsers/DialogsUsers";
 import {DialogsMessages} from "./DialogsMessages/DialogsMessages";
 import {DialogsPropsType} from "./DialogsContainer";
 
-
 export const Dialogs = (props: DialogsPropsType) => {
 
     let state = props.messagesPage

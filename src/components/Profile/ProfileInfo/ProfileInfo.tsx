@@ -4,6 +4,7 @@ import my_avatar from "../../../Image/my_avatar.jpg"
 import {ProfileType} from "../../../Redux/profile-page-reducer";
 import {Preloader} from "../../common/Preloader/Preloader";
 import logo from "../../../Image/logo.jpg";
+import {ProfileStatus} from "./ProfileStatus";
 
 
 
@@ -36,11 +37,11 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                                 <span>{props.age}</span>
                                 <p>{props.city}</p>
                             </div>
+                            <ProfileStatus status={"YOYOYO"}/>
                         </div>
                     </>
                     :<img src={props.profile.photos.large !== null ? props.profile.photos.large: logo} alt="userPhoto"/>
                 }
-                {/*<img src={props.profile.photos.large !== null ? props.profile.photos.large: logo} alt="userPhoto"/>*/}
             </section>
         </>
     );
