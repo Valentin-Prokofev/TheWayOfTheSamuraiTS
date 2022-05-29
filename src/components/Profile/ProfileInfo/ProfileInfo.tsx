@@ -7,12 +7,13 @@ import logo from "../../../Image/logo.jpg";
 import {ProfileStatus} from "./ProfileStatus";
 
 
-
 type ProfileInfoPropsType = {
     name: string
     age: string
     city: string
     profile: ProfileType | null
+    status: string
+    updateStatusProfile: () => void
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
@@ -25,7 +26,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
         <>
             <section className={style.user_account}>
                 {!props.profile
-                   ? <>< img className={style.user_photo}
+                    ? <>< img className={style.user_photo}
                               src={my_avatar}
                               alt="my avatar"
                     />
@@ -37,10 +38,14 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                                 <span>{props.age}</span>
                                 <p>{props.city}</p>
                             </div>
-                            <ProfileStatus status={"YOYOYO"}/>
+                            <ProfileStatus status={props.status} updateStatusProfile={props.updateStatusProfile}/>
                         </div>
                     </>
-                    :<img src={props.profile.photos.large !== null ? props.profile.photos.large: logo} alt="userPhoto"/>
+                    :
+                    <div><img src={props.profile.photos.large !== null ? props.profile.photos.large : logo}
+                            alt="userPhoto"/>
+                        <ProfileStatus status={props.status} updateStatusProfile={props.updateStatusProfile}/>
+                    </div>
                 }
             </section>
         </>

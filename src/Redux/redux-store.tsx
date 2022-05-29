@@ -2,7 +2,7 @@ import {applyMiddleware, combineReducers, createStore} from "redux";
 import {
     addPostActionCreator,
     changeNewTextActionCreator,
-    profilePageReducer,
+    profilePageReducer, setStatusProfile,
     setUserProfile
 } from "./profile-page-reducer";
 import {
@@ -53,6 +53,7 @@ export type ActionsTypes =
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof toggleIsFollowingProgress>
+    | ReturnType<typeof setStatusProfile>
 
 
 // @ts-ignore

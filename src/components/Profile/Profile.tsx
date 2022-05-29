@@ -7,6 +7,8 @@ import {ProfileType} from "../../Redux/profile-page-reducer";
 
 type ProfilePropsType = {
     profile: ProfileType | null
+    status: string
+    updateStatusProfile: () => void
 }
 
 export const Profile = (props: ProfilePropsType) => {
@@ -15,7 +17,13 @@ export const Profile = (props: ProfilePropsType) => {
             <article className={style.content}>
                 <img className={style.img_article}
                      src={view} alt="viewCity"/>
-                <ProfileInfo name={"Valentin Prokofev"} age={"34"} city={"Moscow"} profile={props.profile}/>
+                <ProfileInfo
+                    name={"Valentin Prokofev"}
+                    age={"34"} city={"Moscow"}
+                    profile={props.profile}
+                    status={props.status}
+                    updateStatusProfile={props.updateStatusProfile}
+                />
                 <MyPostsContainer/>
             </article>
         </>

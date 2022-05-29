@@ -1,7 +1,7 @@
 import {ActionsTypes} from "./redux-store";
 import {PhotosType} from "./users-reduser";
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 export type PostsDataType = {
     id: number
@@ -28,12 +28,14 @@ export type ProfileType = {
     photos: PhotosType
 }
 export type ProfilePageType = {
+    status: string
     postsData: Array<PostsDataType>
     messageForNewPost: string
     profile: ProfileType | null
 }
 
 export let initialState: ProfilePageType = {
+    status: "",
     messageForNewPost: "",
     profile: null as ProfileType | null,
     postsData: [
@@ -66,7 +68,10 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
         case "SET-USER-PROFILE": {
             return {...state, profile: action.payload.userProfile}
         }
-        default:                           // если экшн неп подошел возвращаем стейт без изминений
+        case "SET-STATUS-PROFILE": {
+            return {...state, status: action.payload.status}
+        }
+        default:
             return state
     }
 }
@@ -86,11 +91,20 @@ export const changeNewTextActionCreator = (newText: string) => {  //вспомо
     } as const //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
 }
 
-export const setUserProfile = (userProfile: ProfileType) => {  //вспомогательная функция для изминения текста в новом посте
+export const setUserProfile = (userProfile: ProfileType) => {  //получаем страницу пользователя
     return {
         type: "SET-USER-PROFILE",
         payload: {
             userProfile
+        }
+    } as const //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
+}
+
+export const setStatusProfile = (status: string) => {  //получаем статус пользователя
+    return {
+        type: "SET-STATUS-PROFILE",
+        payload: {
+            status
         }
     } as const //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
 }
@@ -101,5 +115,21 @@ export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
     usersAPI.getProfile(userId)
         .then(response => {
             dispatch(setUserProfile(response.data))
+        })
+}
+
+export const getStatusProfile = (userId: number) => (dispatch: Dispatch) => {
+    profileAPI.getStatus(userId)
+        .then(response => {
+            dispatch(setStatusProfile(response.data))
+        })
+}
+
+export const updateStatusProfile = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(response => {
+            if(response.data.resultCode === 0) {
+                dispatch(setStatusProfile(status))
+            }
         })
 }
