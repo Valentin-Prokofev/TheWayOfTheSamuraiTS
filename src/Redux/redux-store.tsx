@@ -22,7 +22,7 @@ import {
 } from "./users-reduser";
 import {authReducer, setAuthUserData} from "./auth-reduser";
 import thunk from "redux-thunk";
-
+import {reducer as formReducer} from 'redux-form'
 
 export let rootReducer = combineReducers({
     profilePage: profilePageReducer,             // перечисляем за какие страницы какой редюсер отвечает
@@ -30,6 +30,7 @@ export let rootReducer = combineReducers({
     sideBar: sideBarReducer,
     users:usersReducer,
     auth: authReducer,
+    form: formReducer
 })
 
 //типизация редакса вместе с редюсерами
