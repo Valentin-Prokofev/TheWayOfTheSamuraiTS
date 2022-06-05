@@ -1,12 +1,10 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import {
     addPostActionCreator,
-    changeNewTextActionCreator,
     profilePageReducer, setStatusProfile,
     setUserProfile
 } from "./profile-page-reducer";
 import {
-    addMessageForDialogsMessageCreator,
     messagesPageReducer,
     sendMessageForDialogsMessageCreator
 } from "./messages-page-reducer";
@@ -42,8 +40,6 @@ export const store = createStore(rootReducer, applyMiddleware(thunk))
 
 export type ActionsTypes =
     ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof changeNewTextActionCreator>
-    | ReturnType<typeof addMessageForDialogsMessageCreator>
     | ReturnType<typeof sendMessageForDialogsMessageCreator>
     | ReturnType<typeof followSuccess>
     | ReturnType<typeof unFollowSuccess>

@@ -1,26 +1,37 @@
 import React from 'react';
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import {Input} from "../common/FormControls/FormControls";
+import {maxLengthCreator, required} from "../../utils/validators/validators";
+import {connect} from "react-redux";
+import {login} from "../../Redux/auth-reduser";
 
 type FormDataType = {
-    login: string
+    email: string
     password: string
     rememberMe: boolean
 }
+
+const maxLength50 = maxLengthCreator(50)
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field type="text" placeholder={"Login"} name={"login"} component={"input"}/>
+                <Field
+                    placeholder={"Email"}
+                    name={"email"}
+                    component={Input}
+                    validate={[required, maxLength50]}
+                />
             </div>
             <div>
-                <Field type="text" placeholder={"Password"} name={"password"} component={"input"}/>
+                <Field type="text" placeholder={"Password"} name={"password"} component={Input}
+                       validate={[required, maxLength50]}/>
             </div>
             <div>
-                <Field type="checkbox" component={"input"} name={"rememberMe"}/> Remember me
+                <Field type="checkbox" component={Input} name={"rememberMe"}/> Remember me
             </div>
             <div>
-                {/*<input type="text" placeholder={"Password"}/>*/}
                 <button>Login</button>
             </div>
         </form>
@@ -29,10 +40,11 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
 const LoginReduxForm = reduxForm<FormDataType>({form: "login"})(LoginForm)
 
-export const Login = () => {
+const Login = (props: LoginPropsType) => {
 
     const onSubmit = (formData: FormDataType) => {
         console.log(formData)
+        props.login(formData.email, formData.password, formData.rememberMe)
     }
     return (
         <div>
@@ -41,3 +53,11 @@ export const Login = () => {
         </div>
     );
 }
+
+export type LoginPropsType = MapDispatchPropsType
+
+type MapDispatchPropsType = {
+    login: (email: string, password: string, rememberMe: boolean) => void
+}
+
+export default connect(null, {login})(Login)

@@ -1,6 +1,6 @@
 import React from 'react';
 import {ProfilePageType} from "../../../Redux/profile-page-reducer";
-import {addPostActionCreator, changeNewTextActionCreator} from "../../../Redux/profile-page-reducer";
+import {addPostActionCreator} from "../../../Redux/profile-page-reducer";
 import {MyPosts} from "./MyPosts";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../Redux/redux-store";
@@ -8,12 +8,11 @@ import {Dispatch} from "redux";
 
 type MapStatePropsType = {
     postsData:ProfilePageType
-    message: string
+    // message: string
 }
 
 type MapDispatchPropsType = {
-    updateNewPostText:(text: string)=>void
-    addPost:()=>void
+    addPost:(newMessageForMyPost: string)=>void
 }
 
 export type MyPostsPropsType = MapDispatchPropsType & MapStatePropsType
@@ -21,17 +20,14 @@ export type MyPostsPropsType = MapDispatchPropsType & MapStatePropsType
 const mapStateToProps = (state: AppStateType):MapStatePropsType => {
     return {
         postsData: state.profilePage,
-        message: state.profilePage.messageForNewPost
+        // message: state.profilePage.messageForNewPost
     }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch):MapDispatchPropsType => {
     return {
-        updateNewPostText: (text: string) => {
-            dispatch(changeNewTextActionCreator(text))
-        },
-        addPost: () => {
-            dispatch(addPostActionCreator())
+        addPost: (newMessageForMyPost) => {
+            dispatch(addPostActionCreator(newMessageForMyPost))
         }
     }
 }

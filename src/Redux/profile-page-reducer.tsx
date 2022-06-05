@@ -30,13 +30,13 @@ export type ProfileType = {
 export type ProfilePageType = {
     status: string
     postsData: Array<PostsDataType>
-    messageForNewPost: string
+    // messageForNewPost: string
     profile: ProfileType | null
 }
 
 export let initialState: ProfilePageType = {
     status: "",
-    messageForNewPost: "",
+    // messageForNewPost: "",
     profile: null as ProfileType | null,
     postsData: [
         {id: 1, message: "Hello!", likesCount: 25},
@@ -53,17 +53,14 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
         case "ADD-POST": {
             let newPost: PostsDataType = {
                 id: 5,
-                message: state.messageForNewPost,
+                message: action.newMessageForMyPost,
                 likesCount: 42
             }
             return {
                 ...state,
                 postsData: [...state.postsData, newPost], //запихиваем новый пост в стейт
-                messageForNewPost: ""
+                // messageForNewPost: ""
             }
-        }
-        case "CHANGE-NEW-TEXT": {
-            return {...state, messageForNewPost: action.newText}
         }
         case "SET-USER-PROFILE": {
             return {...state, profile: action.payload.userProfile}
@@ -78,17 +75,10 @@ export const profilePageReducer = (state: initialStateType = initialState, actio
 
 
 //Actions Creators
-export const addPostActionCreator = () => {   //вспомогательная функция для отправки нового поста
+export const addPostActionCreator = (newMessageForMyPost: string) => {   //вспомогательная функция для отправки нового поста
     return {
-        type: "ADD-POST"
+        type: "ADD-POST", newMessageForMyPost
     } as const    //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
-}
-
-export const changeNewTextActionCreator = (newText: string) => {  //вспомогательная функция для изминения текста в новом посте
-    return {
-        type: "CHANGE-NEW-TEXT",
-        newText: newText
-    } as const //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
 }
 
 export const setUserProfile = (userProfile: ProfileType) => {  //получаем страницу пользователя

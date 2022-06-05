@@ -12,7 +12,7 @@ export type DialogsUsersDataType = {
 
 export type MessagesPageType = {
     dialogsUsersData: Array<DialogsUsersDataType>
-    newMessageForDialogs: string
+    // newMessageForDialogs: string
     dialogsMessagesData: Array<DialogsMessagesDataType>
 }
 
@@ -25,7 +25,7 @@ export let initialState = {
         {id: 5, name: "Victor"},
         {id: 6, name: "Valera"}
     ] as Array<DialogsUsersDataType>,
-    newMessageForDialogs: "",
+    // newMessageForDialogs: "",
     dialogsMessagesData: [
         {id: 1, message: "Hi!"},
         {id: 2, message: "How is your it-kamasutra?"},
@@ -41,16 +41,13 @@ export type InitialStateType = typeof initialState
 export const messagesPageReducer = (state:InitialStateType = initialState, action: ActionsTypes):InitialStateType => {
 
     switch (action.type) {
-        case "ADD_MESSAGE-FOR-DIALOGS": {
-            return {...state, newMessageForDialogs: action.body}
-        }
         case "SEND-MESSAGE-FOR-DIALOGS": {
             let newMessageForDialogs: DialogsMessagesDataType = {    //засовываем новое сообщение в переменную
                 id: 6,
-                message: state.newMessageForDialogs
+                message: action.newMessageBody
             }
            return {...state,           //создаем копию объекта для иммутабельности данных
-                newMessageForDialogs: "",          // обнуляем после добавления
+                // newMessageForDialogs: "",          // обнуляем после добавления
                 dialogsMessagesData: [...state.dialogsMessagesData, newMessageForDialogs]    // создаем копию только той части стейта которую будем менять и запихиваем новое сообщеие в конец стейта
             }
         }
@@ -59,16 +56,10 @@ export const messagesPageReducer = (state:InitialStateType = initialState, actio
     }
 }
 
-export const addMessageForDialogsMessageCreator = (newText: string) => {   //вспомогательная функция для изминения текста нового сообщения
-    return {
-        type: "ADD_MESSAGE-FOR-DIALOGS",
-        body: newText
-    } as const //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
-}
-
-export const sendMessageForDialogsMessageCreator = () => {   //вспомогательная функция для отправки нового сообщения
+export const sendMessageForDialogsMessageCreator = (newMessageBody: string) => {   //вспомогательная функция для отправки нового сообщения
     return {
         type: "SEND-MESSAGE-FOR-DIALOGS",
+        newMessageBody
     } as const //воспринимаем return как константу чтобы тайпскрипт корректно протипизировал
 }
 
