@@ -19,14 +19,14 @@ import {
     usersReducer
 } from "./users-reduser";
 import {authReducer, setAuthUserData} from "./auth-reduser";
-import thunk from "redux-thunk";
-import {reducer as formReducer} from 'redux-form'
+import thunk, {ThunkAction} from "redux-thunk";
+import {FormAction, reducer as formReducer} from 'redux-form'
 
 export let rootReducer = combineReducers({
     profilePage: profilePageReducer,             // перечисляем за какие страницы какой редюсер отвечает
     messagesPage: messagesPageReducer,
     sideBar: sideBarReducer,
-    users:usersReducer,
+    users: usersReducer,
     auth: authReducer,
     form: formReducer
 })
@@ -52,6 +52,12 @@ export type ActionsTypes =
     | ReturnType<typeof toggleIsFollowingProgress>
     | ReturnType<typeof setStatusProfile>
 
+
+//типизация санок
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType,
+    AppStateType,
+    unknown,
+    ActionsTypes>
 
 // @ts-ignore
 window.store = store

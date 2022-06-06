@@ -8,6 +8,7 @@ type HeaderPropsType = {
     email: string | null,
     login: string | null,
     isAuth: boolean
+    logout: () => void
 }
 
 export const Header = (props: HeaderPropsType) => {
@@ -17,8 +18,8 @@ export const Header = (props: HeaderPropsType) => {
                 <img className={style.img_logo} src={logo}
                      alt="logo"/>
                 <div className={style.login_block}>
-                    {props.isAuth
-                        ? props.login
+                    {props.isAuth 
+                        ? <div>{props.login} - <button onClick={props.logout}>Log out</button></div>
                         : <NavLink to={"/login"}>Login</NavLink>
                     }
                 </div>

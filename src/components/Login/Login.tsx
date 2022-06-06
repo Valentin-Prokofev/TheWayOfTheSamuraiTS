@@ -4,6 +4,10 @@ import {Input} from "../common/FormControls/FormControls";
 import {maxLengthCreator, required} from "../../utils/validators/validators";
 import {connect} from "react-redux";
 import {login} from "../../Redux/auth-reduser";
+import {AppStateType} from "../../Redux/redux-store";
+import {Redirect} from "react-router-dom";
+import styles from "../common/FormControls/FormControls.module.css"
+
 
 type FormDataType = {
     email: string
@@ -31,6 +35,9 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <Field type="checkbox" component={Input} name={"rememberMe"}/> Remember me
             </div>
+            {props.error && <div className={styles.form_summary_error}>
+                {props.error}
+            </div>}
             <div>
                 <button>Login</button>
             </div>
@@ -46,6 +53,9 @@ const Login = (props: LoginPropsType) => {
         console.log(formData)
         props.login(formData.email, formData.password, formData.rememberMe)
     }
+    if (props.isAuth) {
+        return <Redirect to={"/profile"}/>
+    }
     return (
         <div>
             <h1>LOGIN</h1>
@@ -54,10 +64,18 @@ const Login = (props: LoginPropsType) => {
     );
 }
 
-export type LoginPropsType = MapDispatchPropsType
+export type LoginPropsType = MapDispatchPropsType & MapStatePropsType
 
 type MapDispatchPropsType = {
     login: (email: string, password: string, rememberMe: boolean) => void
 }
 
-export default connect(null, {login})(Login)
+type MapStatePropsType = {
+    isAuth: boolean
+}
+const mapStateToProps = (state: AppStateType): MapStatePropsType => {
+    return {
+        isAuth: state.auth.isAuth
+    }
+}
+export default connect(mapStateToProps, {login})(Login)
