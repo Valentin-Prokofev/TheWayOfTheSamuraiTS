@@ -20,7 +20,8 @@ import {
 } from "./users-reduser";
 import {authReducer, setAuthUserData} from "./auth-reduser";
 import thunk, {ThunkAction} from "redux-thunk";
-import {FormAction, reducer as formReducer} from 'redux-form'
+import {reducer as formReducer} from 'redux-form'
+import {appReducer, initializedSuccess} from "./app-reduser";
 
 export let rootReducer = combineReducers({
     profilePage: profilePageReducer,             // перечисляем за какие страницы какой редюсер отвечает
@@ -28,7 +29,8 @@ export let rootReducer = combineReducers({
     sideBar: sideBarReducer,
     users: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    app: appReducer
 })
 
 //типизация редакса вместе с редюсерами
@@ -51,6 +53,7 @@ export type ActionsTypes =
     | ReturnType<typeof setAuthUserData>
     | ReturnType<typeof toggleIsFollowingProgress>
     | ReturnType<typeof setStatusProfile>
+    | ReturnType<typeof initializedSuccess>
 
 
 //типизация санок
